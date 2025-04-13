@@ -1,6 +1,8 @@
 package org.example.summerpractice.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 
 import java.time.LocalDate;
@@ -20,7 +22,8 @@ public class ComposerDTO {
     @Pattern(regexp = "^(?:[А-ЯЁ][а-яё]+(?:[- ]?[А-ЯЁ][а-яё]+)?)?$")
     private final String fatherName;
 
-    @NotBlank(message = "День рождения не может быть пустым")
+    @NotNull(message = "Дата рождения не должна быть null")
+    @Past(message = "Дата рождения должна быть в прошлом")
     private final LocalDate birthday;
 
     private final List<Long> tracksId;

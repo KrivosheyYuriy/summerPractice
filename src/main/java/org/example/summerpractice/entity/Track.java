@@ -28,16 +28,16 @@ public class Track {
     private int durationSeconds;
 
     @OneToMany(mappedBy = "track", orphanRemoval = true)
-    private List<TrackGenre> genres;
+    private List<TrackGenre> genres = List.of();
 
     @OneToMany(mappedBy = "track", orphanRemoval = true)
-    private List<ComposerTrack>  composers;
+    private List<ComposerTrack>  composers = List.of();
 
     @OneToMany(mappedBy = "track", orphanRemoval = true)
-    private List<AlbumTrack> albums;
+    private List<AlbumTrack> albums = List.of();
 
     @OneToMany(mappedBy = "track", orphanRemoval = true)
-    private List<PlayListTrack> playLists;
+    private List<PlayListTrack> playLists = List.of();
 
     public Track() {}
 

@@ -27,7 +27,7 @@ public class Composer {
     private LocalDate birthday;
 
     @OneToMany(mappedBy = "composer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ComposerTrack> tracks;
+    private List<ComposerTrack> tracks = List.of();
 
     public Composer() {}
 
@@ -38,7 +38,7 @@ public class Composer {
         this.birthday = birthday;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -70,8 +70,16 @@ public class Composer {
         return birthday;
     }
 
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
     public List<ComposerTrack> getTracks() {
         return tracks;
+    }
+
+    public void setTracks(List<ComposerTrack> tracks) {
+        this.tracks = tracks;
     }
 
     @Override

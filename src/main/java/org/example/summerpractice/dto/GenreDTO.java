@@ -1,11 +1,13 @@
 package org.example.summerpractice.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class GenreDTO {
     private Long id;
 
+    @NotNull(message = "Название жанра не должно быть null")
     @NotBlank(message = "Название жанра не может быть пустым")
     @Size(max = 64, message = "Название жанра не должно превышать 64 символа")
     private String title;

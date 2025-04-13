@@ -1,6 +1,7 @@
 package org.example.summerpractice.service.composer;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.apache.coyote.Response;
 import org.example.summerpractice.dto.ComposerDTO;
 import org.example.summerpractice.entity.Composer;
 import org.example.summerpractice.entity.Track;
@@ -8,9 +9,11 @@ import org.example.summerpractice.entity.composerTrack.ComposerTrack;
 import org.example.summerpractice.mappers.ComposerConverter;
 import org.example.summerpractice.repository.ComposerRepository;
 import org.example.summerpractice.repository.TrackRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.net.http.HttpResponse;
 import java.util.List;
 
 @Service
@@ -35,6 +38,38 @@ public class ComposerServiceImpl implements ComposerService {
                 orElseThrow(() -> new EntityNotFoundException("Композитор с id " + id + " не существует"));
     }
 
+    @Override
+    public ComposerDTO addComposer(ComposerDTO composerDTO) {
+        Composer composer = toComposer(composerDTO);
+        return ComposerConverter.toComposerDTO(composerRepository.save(composer));
+    }
+
+    @Override
+    public ComposerDTO updateComposer(Long id, ComposerDTO composerDTO) {
+        Composer updateComposer = toComposer(composerDTO);
+
+        Composer composer = composerRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Композитор с id " + composerDTO.getId() + " не найден"));
+
+        composer.setName(updateComposer.getName());
+        composer.setSurname(updateComposer.getSurname());
+        composer.setFatherName(updateComposer.getFatherName());
+        composer.setBirthday(updateComposer.getBirthday());
+
+        composer.getTracks().clear();
+        composer.getTracks().addAll(updateComposer.getTracks().
+                stream().
+                map(it -> new ComposerTrack(composer, it.getTrack())).
+                toList());
+
+        return ComposerConverter.toComposerDTO(composerRepository.save(composer));
+    }
+
+    @Override
+    public void deleteComposer(Long id) {
+        composerRepository.deleteById(id);
+    }
+
     private Composer toComposer(ComposerDTO composerDTO) {
         if (composerDTO.getId() != null)
             return composerRepository.findById(composerDTO.getId()).orElseThrow(
@@ -56,7 +91,8 @@ public class ComposerServiceImpl implements ComposerService {
                         return new ComposerTrack(composer, track);
                     })
                     .toList();
-            composer.getTracks().addAll(composerTracks);
+
+            composer.setTracks(composerTracks);
         }
 
         return composer;

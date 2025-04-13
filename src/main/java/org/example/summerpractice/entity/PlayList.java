@@ -19,7 +19,7 @@ public class PlayList {
     private String description;
 
     @OneToMany(mappedBy = "playList", orphanRemoval = true)
-    private List<PlayListTrack> tracks;
+    private List<PlayListTrack> tracks = List.of();
 
     public PlayList() {}
 
