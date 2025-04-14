@@ -4,7 +4,6 @@ import jakarta.persistence.EntityNotFoundException;
 import org.example.summerpractice.dto.TrackDTO;
 import org.example.summerpractice.entity.*;
 import org.example.summerpractice.entity.albumTrack.AlbumTrack;
-import org.example.summerpractice.entity.albumTrack.AlbumTrackId;
 import org.example.summerpractice.entity.composerTrack.ComposerTrack;
 import org.example.summerpractice.entity.playListTrack.PlayListTrack;
 import org.example.summerpractice.entity.trackGenre.TrackGenre;
@@ -94,34 +93,6 @@ public class TrackServiceImpl implements TrackService {
                         new AlbumTrack(it.getAlbum(), track))
                 .toList());
 
-        System.out.println(track.getComposers());
-        for (ComposerTrack composerTrack : track.getComposers()) {
-            System.out.printf("%d %d\n",
-                    composerTrack.getComposer().getId(),
-                    composerTrack.getTrack().getId());
-        }
-
-        System.out.println(track.getGenres());
-        for (TrackGenre trackGenre : track.getGenres()) {
-            System.out.printf("%d %d\n",
-                    trackGenre.getTrack().getId(),
-                    trackGenre.getGenre().getId());
-        }
-
-        System.out.println(track.getAlbums());
-        for (AlbumTrack albumTrack : track.getAlbums()) {
-            System.out.printf("%d %d\n",
-                    albumTrack.getAlbum().getId(),
-                    albumTrack.getTrack().getId());
-        }
-
-        System.out.println(track.getPlayLists());
-        for (PlayListTrack playListTrack : track.getPlayLists()) {
-            System.out.printf("%d %d\n",
-                    playListTrack.getPlayList().getId(),
-                    playListTrack.getTrack().getId());
-        }
-
         return TrackConverter.toTrackDTO(trackRepository.save(track));
     }
 
@@ -187,7 +158,7 @@ public class TrackServiceImpl implements TrackService {
     }
 
     private List<PlayListTrack> getPlayListTracks(TrackDTO trackDTO, Track track) {
-        return trackDTO.getAlbumsId().stream()
+        return trackDTO.getPlayListsId().stream()
                 .map(playListId -> {
                     PlayList playList = playListRepository.findById(playListId)
                             .orElseThrow(() -> new

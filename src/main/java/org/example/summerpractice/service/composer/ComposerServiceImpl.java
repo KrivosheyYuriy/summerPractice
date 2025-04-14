@@ -1,7 +1,6 @@
 package org.example.summerpractice.service.composer;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.apache.coyote.Response;
 import org.example.summerpractice.dto.ComposerDTO;
 import org.example.summerpractice.entity.Composer;
 import org.example.summerpractice.entity.Track;
@@ -9,11 +8,9 @@ import org.example.summerpractice.entity.composerTrack.ComposerTrack;
 import org.example.summerpractice.mappers.ComposerConverter;
 import org.example.summerpractice.repository.ComposerRepository;
 import org.example.summerpractice.repository.TrackRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.net.http.HttpResponse;
 import java.util.List;
 
 @Service
@@ -72,11 +69,6 @@ public class ComposerServiceImpl implements ComposerService {
     }
 
     private Composer toComposer(ComposerDTO composerDTO) {
-//        if (composerDTO.getId() != null)
-//            return composerRepository.findById(composerDTO.getId()).orElseThrow(
-//                    () -> new EntityNotFoundException("Композитор с id " + composerDTO.getId() + " не найден")
-//            );
-
         Composer composer = new Composer(
                 composerDTO.getName(),
                 composerDTO.getSurname(),

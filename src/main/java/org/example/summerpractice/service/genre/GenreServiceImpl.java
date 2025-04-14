@@ -24,7 +24,7 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public GenreDTO getGenre(Long id) {
+    public GenreDTO getGenreById(Long id) {
         return GenreConverter.toGenreDTO(genreRepository.findById(id).
                 orElseThrow(() -> new EntityNotFoundException("Жанр с id " + id + " не существует")));
     }

@@ -24,7 +24,7 @@ public class Album {
 
     public Album() {}
 
-    public Album(String title, LocalDate releaseDate, String description) {
+    public Album(String title, String description, LocalDate releaseDate) {
         this.title = title;
         this.releaseDate = releaseDate;
         this.description = description;
@@ -60,6 +60,10 @@ public class Album {
 
     public List<AlbumTrack> getTracks() {
         return tracks;
+    }
+
+    public void setTracks(List<AlbumTrack> tracks) {
+        this.tracks = tracks;
     }
 
     @Override

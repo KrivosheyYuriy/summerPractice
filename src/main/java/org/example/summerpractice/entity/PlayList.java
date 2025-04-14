@@ -52,6 +52,10 @@ public class PlayList {
         return tracks;
     }
 
+    public void setTracks(List<PlayListTrack> tracks) {
+        this.tracks = tracks;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof PlayList playList)) return false;

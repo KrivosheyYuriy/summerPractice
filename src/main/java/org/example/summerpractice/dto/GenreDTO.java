@@ -5,15 +5,15 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class GenreDTO {
-    private Long id;
+    private final Long id;
 
     @NotNull(message = "Название жанра не должно быть null")
     @NotBlank(message = "Название жанра не может быть пустым")
     @Size(max = 64, message = "Название жанра не должно превышать 64 символа")
-    private String title;
+    private final String title;
 
     @Size(max = 256, message = "Описание жанра превышает 256 символов")
-    private String description;
+    private final String description;
 
     public GenreDTO(Long id, String title, String description) {
         this.id = id;
