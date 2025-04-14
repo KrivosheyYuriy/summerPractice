@@ -1,9 +1,43 @@
+version: "3.8"
+
 services:
-  postgres:
-    image: 'postgres:latest'
+  summerpracticedb:
+    image: postgres:latest
+    container_name: summerPracticeDB
     environment:
-      - 'POSTGRES_DB=mydatabase'
-      - 'POSTGRES_PASSWORD=secret'
-      - 'POSTGRES_USER=myuser'
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "123"
+      POSTGRES_DB: summerpract
+    networks:
+      - app_network
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  summerpracticeapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: summerpracticeapp:latest
+    networks:
+      - app_network
+    depends_on:
+      - summerpracticedb
+    restart: always
     ports:
-      - '5432'
+      - "8080:8080"
+    container_name: summerPracticeApp
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://summerpracticedb:5432/summerpract
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: "123"
+    volumes:
+      - app_resources:/app_working_dir/src/main/resources
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  pgdata:
+  app_resources:
