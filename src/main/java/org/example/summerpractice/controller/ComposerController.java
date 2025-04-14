@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.validation.Validator;
 import java.util.List;
 
 @RestController
@@ -44,7 +43,7 @@ public class ComposerController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ComposerDTO> deleteComposer(@PathVariable Long id) {
-        composerService.deleteComposer(id);
+        composerService.deleteComposerByID(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

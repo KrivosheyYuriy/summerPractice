@@ -12,13 +12,13 @@ import java.util.List;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleEntityNotFoundException(EntityNotFoundException e) {
-        String message = e.getMessage();
-        System.err.println(message);
-        ErrorResponse response = new ErrorResponse(message);
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-    }
+//    @ExceptionHandler(EntityNotFoundException.class)
+//    public ResponseEntity<ErrorResponse> handleEntityNotFoundException(EntityNotFoundException e) {
+//        String message = e.getMessage();
+//        System.err.println(message);
+//        ErrorResponse response = new ErrorResponse(message);
+//        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+//    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {

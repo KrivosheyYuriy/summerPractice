@@ -49,7 +49,7 @@ public class ComposerServiceImpl implements ComposerService {
         Composer updateComposer = toComposer(composerDTO);
 
         Composer composer = composerRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Композитор с id " + composerDTO.getId() + " не найден"));
+                () -> new EntityNotFoundException("Композитор с id " + id + " не найден"));
 
         composer.setName(updateComposer.getName());
         composer.setSurname(updateComposer.getSurname());
@@ -58,23 +58,24 @@ public class ComposerServiceImpl implements ComposerService {
 
         composer.getTracks().clear();
         composer.getTracks().addAll(updateComposer.getTracks().
-                stream().
-                map(it -> new ComposerTrack(composer, it.getTrack())).
+                stream()
+                .map(it ->
+                        new ComposerTrack(composer, it.getTrack())).
                 toList());
 
         return ComposerConverter.toComposerDTO(composerRepository.save(composer));
     }
 
     @Override
-    public void deleteComposer(Long id) {
+    public void deleteComposerByID(Long id) {
         composerRepository.deleteById(id);
     }
 
     private Composer toComposer(ComposerDTO composerDTO) {
-        if (composerDTO.getId() != null)
-            return composerRepository.findById(composerDTO.getId()).orElseThrow(
-                    () -> new EntityNotFoundException("Композитор с id " + composerDTO.getId() + " не найден")
-            );
+//        if (composerDTO.getId() != null)
+//            return composerRepository.findById(composerDTO.getId()).orElseThrow(
+//                    () -> new EntityNotFoundException("Композитор с id " + composerDTO.getId() + " не найден")
+//            );
 
         Composer composer = new Composer(
                 composerDTO.getName(),
@@ -83,18 +84,19 @@ public class ComposerServiceImpl implements ComposerService {
                 composerDTO.getBirthday()
         );
 
-        if (composerDTO.getTracksId() != null) {
-            List<ComposerTrack> composerTracks = composerDTO.getTracksId().stream()
-                    .map(trackId -> {
-                        Track track = trackRepository.findById(trackId)
-                                .orElseThrow(() -> new EntityNotFoundException("Трек с id " + trackId + " не найден"));
-                        return new ComposerTrack(composer, track);
-                    })
-                    .toList();
-
-            composer.setTracks(composerTracks);
-        }
+        List<ComposerTrack> composerTracks = getComposerTracks(composerDTO, composer);
+        composer.setTracks(composerTracks);
 
         return composer;
+    }
+
+    private List<ComposerTrack> getComposerTracks(ComposerDTO composerDTO, Composer composer) {
+        return composerDTO.getTracksId().stream()
+                .map(trackId -> {
+                    Track track = trackRepository.findById(trackId)
+                            .orElseThrow(() -> new EntityNotFoundException("Трек с id " + trackId + " не найден"));
+                    return new ComposerTrack(composer, track);
+                })
+                .toList();
     }
 }

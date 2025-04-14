@@ -19,7 +19,7 @@ public class Genre {
     @Column
     private String description;
 
-    @OneToMany(mappedBy = "genre", cascade =  CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TrackGenre> tracks = List.of();
 
     public Genre() {}

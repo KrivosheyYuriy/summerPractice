@@ -15,5 +15,5 @@ public interface ComposerService {
 
     public ComposerDTO updateComposer(Long id, ComposerDTO composerDTO);
 
-    public void deleteComposer(Long id);
+    public void deleteComposerByID(Long id);
 }

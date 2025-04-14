@@ -1,6 +1,5 @@
 package org.example.summerpractice.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.example.summerpractice.entity.composerTrack.ComposerTrack;
 

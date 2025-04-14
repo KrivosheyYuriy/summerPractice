@@ -18,7 +18,7 @@ public class PlayList {
     @Column
     private String description;
 
-    @OneToMany(mappedBy = "playList", orphanRemoval = true)
+    @OneToMany(mappedBy = "playList", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PlayListTrack> tracks = List.of();
 
     public PlayList() {}

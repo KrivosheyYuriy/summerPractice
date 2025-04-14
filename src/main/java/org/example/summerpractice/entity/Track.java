@@ -27,21 +27,21 @@ public class Track {
     @Column(nullable = false)
     private int durationSeconds;
 
-    @OneToMany(mappedBy = "track", orphanRemoval = true)
+    @OneToMany(mappedBy = "track", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TrackGenre> genres = List.of();
 
-    @OneToMany(mappedBy = "track", orphanRemoval = true)
-    private List<ComposerTrack>  composers = List.of();
+    @OneToMany(mappedBy = "track", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ComposerTrack> composers = List.of();
 
-    @OneToMany(mappedBy = "track", orphanRemoval = true)
+    @OneToMany(mappedBy = "track", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AlbumTrack> albums = List.of();
 
-    @OneToMany(mappedBy = "track", orphanRemoval = true)
+    @OneToMany(mappedBy = "track", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PlayListTrack> playLists = List.of();
 
     public Track() {}
 
-    public Track(String title, String description, String filename, int durationSeconds) {
+    public Track(String title, String filename, String description, int durationSeconds) {
         this.title = title;
         this.description = description;
         this.filename = filename;
@@ -84,16 +84,32 @@ public class Track {
         return genres;
     }
 
+    public void setGenres(List<TrackGenre> genres) {
+        this.genres = genres;
+    }
+
     public List<ComposerTrack> getComposers() {
         return composers;
+    }
+
+    public void setComposers(List<ComposerTrack> composers) {
+        this.composers = composers;
     }
 
     public List<AlbumTrack> getAlbums() {
         return albums;
     }
 
+    public void setAlbums(List<AlbumTrack> albums) {
+        this.albums = albums;
+    }
+
     public List<PlayListTrack> getPlayLists() {
         return playLists;
+    }
+
+    public void setPlayLists(List<PlayListTrack> playLists) {
+        this.playLists = playLists;
     }
 
     public void setFilename(String filename) {

@@ -1,7 +1,6 @@
 package org.example.summerpractice.controller;
 
 import org.example.summerpractice.dto.GenreDTO;
-import org.example.summerpractice.repository.GenreRepository;
 import org.example.summerpractice.service.genre.GenreService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

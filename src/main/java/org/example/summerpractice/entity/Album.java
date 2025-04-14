@@ -19,7 +19,7 @@ public class Album {
 
     private String description;
 
-    @OneToMany(mappedBy = "album", orphanRemoval = true)
+    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AlbumTrack> tracks  = List.of();
 
     public Album() {}

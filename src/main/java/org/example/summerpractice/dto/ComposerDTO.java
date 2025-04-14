@@ -26,6 +26,7 @@ public class ComposerDTO {
     @Past(message = "Дата рождения должна быть в прошлом")
     private final LocalDate birthday;
 
+    @NotNull(message = "список id треков не должен быть null")
     private final List<Long> tracksId;
 
     public ComposerDTO(Long id, String name, String surname, String fatherName,
