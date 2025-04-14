@@ -23,7 +23,7 @@ public class TrackConverter {
                 .map(it -> it.getAlbum().getId())
                 .toList();
 
-        TrackDTO trackDTO = new TrackDTO(
+        return new TrackDTO(
                 track.getId(),
                 track.getTitle(),
                 track.getFilename(),
@@ -34,7 +34,5 @@ public class TrackConverter {
                 albumsId,
                 playListsId
         );
-
-        return trackDTO;
     }
 }

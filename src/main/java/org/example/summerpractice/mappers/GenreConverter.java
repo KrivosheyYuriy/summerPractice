@@ -5,12 +5,10 @@ import org.example.summerpractice.entity.Genre;
 
 public class GenreConverter {
     public static GenreDTO toGenreDTO(Genre genre) {
-        GenreDTO genreDTO = new GenreDTO(genre.getId(), genre.getTitle(), genre.getDescription());
-        return genreDTO;
+        return new GenreDTO(genre.getId(), genre.getTitle(), genre.getDescription());
     }
 
-    public static Genre toGenre(GenreDTO genreDTO) {
-        Genre genre = new Genre(genreDTO.getTitle(), genreDTO.getDescription());
-        return genre;
-    }
+//    public static Genre toGenre(GenreDTO genreDTO) {
+//        return new Genre(genreDTO.getTitle(), genreDTO.getDescription());
+//    }
 }
